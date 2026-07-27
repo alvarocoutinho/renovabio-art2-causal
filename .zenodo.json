@@ -1,0 +1,39 @@
+{
+  "title": "Intensity Gains, Scale Effects: Causal Inference and Emissions Impact of Brazil's National Biofuels Policy — replication package",
+  "upload_type": "software",
+  "description": "Pacote de replicacao do manuscrito submetido a Ecological Economics. Avaliacao causal dos efeitos do programa RenovaBio sobre emissoes AFOLU municipais no Centro-Sul brasileiro (2015-2024), com decomposicao entre ganhos de intensidade produtiva e efeitos de escala, via estimador Callaway-Sant'Anna doubly robust (CS-DR).",
+  "creators": [
+    {
+      "name": "Coutinho, Alvaro Luz Alves",
+      "affiliation": "Universidade de Sao Paulo (ESALQ/CENA)",
+      "orcid": "0000-0000-0000-0000"
+    },
+    {
+      "name": "Almeida, Alexandre Nunes de",
+      "affiliation": "Universidade de Sao Paulo (ESALQ)"
+    },
+    {
+      "name": "Silva, Roberto Fray da",
+      "affiliation": "Universidade de Sao Paulo"
+    },
+    {
+      "name": "Sarries, Gabriel Adrian",
+      "affiliation": "Universidade de Sao Paulo (ESALQ)"
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "language": "por",
+  "keywords": [
+    "RenovaBio",
+    "causal inference",
+    "difference-in-differences",
+    "AFOLU emissions",
+    "biofuels policy",
+    "Brazil"
+  ],
+  "grants": [
+    {"id": "10.13039/501100001807::2025/01530-0"}
+  ],
+  "notes": "This study was financed, in part, by the Sao Paulo Research Foundation (FAPESP), Brazil. Process Number #2025/01530-0."
+}

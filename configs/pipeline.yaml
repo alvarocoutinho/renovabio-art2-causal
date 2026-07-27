@@ -1,0 +1,57 @@
+# ============================================================================
+# Configurações externas do pipeline — RenovaBio × AFOLU
+# ============================================================================
+# Este arquivo é OPCIONAL nesta fase do pipeline. Os parâmetros principais
+# vivem em pipeline/config.py (PARAMS dataclass). Esta YAML existe para
+# parametrizações que podem mudar entre runs (e.g., qual critério de filtro
+# canavieiro usar) sem precisar editar código.
+#
+# Para usar em uma sessão Colab:
+#     import yaml
+#     with open('/content/drive/MyDrive/Renovabio - EcoEco/configs/pipeline.yaml') as f:
+#         cfg = yaml.safe_load(f)
+# ============================================================================
+
+# Critério de filtro canavieiro (§3.3 do pré-registro)
+filtro_canavieiro:
+  criterio_principal: padrao    # opções: estrito | padrao | frouxo
+  thresholds:
+    estrito:
+      share_cana_min: 0.10
+      area_cana_min_ha: 1000
+    padrao:
+      share_cana_min: 0.05
+      area_cana_min_ha: 500
+    frouxo:
+      share_cana_min: 0.02
+      area_cana_min_ha: 200
+
+# Janela temporal
+janela:
+  principal:
+    inicio: 2015
+    fim: 2024
+  robustez:
+    inicio: 2012
+    fim: 2024
+  baseline_pre:
+    inicio: 2015
+    fim: 2019
+  programa_inicio: 2020
+
+# Decisões de transformação por outcome (§3.10)
+transformacoes:
+  luc: asinh
+  carbono_solo: asinh
+  queima: log1p
+  solos_manejados: log
+  residuos_florestais: log1p
+  cobertura_car_ativo: nivel       # já é proporção em [0,1]
+  adesao_pra: nivel
+  cobertura_veg_nativa: nivel
+
+# Política de ANP (decisões pendentes documentadas)
+anp:
+  neea_versao: clean    # opções: padrao | clean | weighted
+  pre_program_cutoff: 2018
+  agregacao_dose: ponderada_volume   # média ponderada por volume da usina

@@ -1,0 +1,24 @@
+LICENÇA DOS DADOS / DATA LICENSE
+================================
+
+Os conjuntos de dados derivados contidos em `data/interim/`, `data/processed/` e
+`outputs/` são produto original desta pesquisa e estão licenciados sob a
+
+    Creative Commons Attribution 4.0 International (CC BY 4.0)
+    https://creativecommons.org/licenses/by/4.0/
+
+Atribuição sugerida:
+    Coutinho, A. L. A.; Almeida, A. N.; Silva, R. F.; Sarriés, G. A. (2026).
+    Intensity Gains, Scale Effects: Causal Inference and Emissions Impact of
+    Brazil's National Biofuels Policy — replication data. [DOI]
+
+DADOS DE TERCEIROS
+------------------
+Este repositório NÃO redistribui dados brutos de terceiros. As fontes originais
+(ANP, IBGE/PAM, SEEG, MapBiomas e demais bases do baseline socioeconômico)
+permanecem sujeitas às licenças e termos de uso de seus provedores, documentados
+em `data/raw/MANIFEST.md`.
+
+Usuários que reutilizarem os dados derivados devem observar as licenças das fontes
+primárias, em especial cláusulas de compartilhamento pela mesma licença
+(share-alike) quando aplicáveis — caso do MapBiomas (CC BY-SA 4.0).

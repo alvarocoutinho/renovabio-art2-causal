@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "Se você utilizar este material, por favor cite conforme abaixo."
+title: "Intensity Gains, Scale Effects: Causal Inference and Emissions Impact of Brazil's National Biofuels Policy — replication package"
+abstract: >-
+  Pacote de replicação da avaliação causal dos efeitos do programa RenovaBio
+  sobre emissões AFOLU municipais no Centro-Sul brasileiro (2015–2024), com
+  decomposição entre ganhos de intensidade produtiva e efeitos de escala.
+  Emprega o estimador Callaway–Sant'Anna doubly robust (CS-DR) sobre painel
+  municipal, conforme pré-registro consolidado.
+type: software
+authors:
+  - family-names: Coutinho
+    given-names: Alvaro Luz Alves
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+    affiliation: "Universidade de São Paulo (ESALQ/CENA)"
+  - family-names: Almeida
+    given-names: Alexandre Nunes de
+    affiliation: "Universidade de São Paulo (ESALQ)"
+  - family-names: Silva
+    given-names: Roberto Fray da
+    affiliation: "Universidade de São Paulo"
+  - family-names: Sarriés
+    given-names: Gabriel Adrián
+    affiliation: "Universidade de São Paulo (ESALQ)"
+version: 1.0.0
+date-released: "2026-08-01"
+license: MIT
+repository-code: "https://github.com/USUARIO/renovabio-art2-causal"
+keywords:
+  - RenovaBio
+  - causal inference
+  - difference-in-differences
+  - AFOLU emissions
+  - biofuels policy
+  - Brazil
