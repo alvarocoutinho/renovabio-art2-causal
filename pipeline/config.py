@@ -127,12 +127,12 @@ PSM_BASELINE_RAW = RAW_PSM_BASELINE / "base_psm_integrada_raw.csv"
 
 
 # ============================================================================
-# PARÂMETROS METODOLÓGICOS DO PRÉ-REGISTRO V2.2
+# PARÂMETROS METODOLÓGICOS DO PRÉ-REGISTRO v2.6
 # ============================================================================
 
 @dataclass(frozen=True)
 class Params:
-    """Parâmetros metodológicos imutáveis declarados no pré-registro."""
+    """Parâmetros metodológicos imutáveis declarados no pré-registro v2.6."""
 
     # --- Universo geográfico (§3.2) ---
     # Centro-Sul SEM Espírito Santo
@@ -161,11 +161,11 @@ class Params:
     CRS_GEO: str = "EPSG:4326"        # geográfico
     CRS_PROJ: str = "EPSG:5880"       # SIRGAS 2000 Brazil Polyconic
 
-    # --- Hipóteses e outcomes (§2 H1, H2 v2.2) ---
+    # --- Hipóteses e outcomes (§2 H1, H2) ---
     # H1a primário: log_luc          (predição: nulo ou pequeno)
     # H1b secundário: carbono_solo   (predição: positivo)
-    # H1c primário: cobertura_car_ativo + adesao_pra (SICAR)
-    # H1c secundário: cobertura_veg_nativa (SICAR)
+    # H1c primário: cobertura_car_ativo + adesao_pra (SICAR) — NÃO TESTADO
+    # H1c secundário: cobertura_veg_nativa (SICAR) — NÃO TESTADO
     # H2 primário: log_solos_manejados (predição: negativo conforme NEEA ↑)
     # H2 secundário: log_queima        (predição: negativo, mas com L13)
     OUTCOMES_AFOLU = (
@@ -175,10 +175,17 @@ class Params:
         "log_solos_manejados",      # H2 primário
         "log_residuos_florestais",  # auxiliar
     )
+    # --- H1c: NÃO TESTADA ---------------------------------------------
+    # Os três desfechos abaixo derivam do SICAR, fonte descartada no curso da
+    # pesquisa por inadequação da unidade de análise (o desenho final opera em
+    # nível municipal) e por envolver dados pessoais sujeitos à LGPD.
+    # A decisão é ANTERIOR e INDEPENDENTE dos resultados obtidos para H1a,
+    # H1b e H2. Mantido aqui como registro do pré-registro v2.6.
+    # Ver README, seção "Pré-registro e hipóteses".
     OUTCOMES_H1C = (
-        "cobertura_car_ativo",      # H1c-1
-        "adesao_pra",               # H1c-2
-        "cobertura_veg_nativa",     # H1c-3
+        "cobertura_car_ativo",      # H1c-1 — não testado
+        "adesao_pra",               # H1c-2 — não testado
+        "cobertura_veg_nativa",     # H1c-3 — não testado
     )
 
     # --- Transformações (§3.10) ---

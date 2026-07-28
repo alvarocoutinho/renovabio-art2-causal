@@ -1,126 +1,191 @@
 # Intensity Gains, Scale Effects: Causal Inference and Emissions Impact of Brazil's National Biofuels Policy
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Pacote de replicação do manuscrito submetido a *Ecological Economics* (Elsevier).
 
 **Autores:** Alvaro Luz Alves Coutinho, Alexandre Nunes de Almeida, Roberto Fray da Silva, Gabriel Adrián Sarriés
 
-**DOI:** `10.5281/zenodo.XXXXXXX` <!-- substituir pelo concept DOI após o primeiro release -->
-
-**Versão:** `PREENCHER` <!-- 0.1.0-skeleton era a versão anterior; atualizar -->
+**DOI (todas as versões):** `10.5281/zenodo.XXXXXXX`
+**Pré-registro:** v2.6
 
 ---
 
 ## Resumo
 
 Avaliação causal dos efeitos do programa RenovaBio sobre emissões AFOLU municipais
-no Centro-Sul brasileiro (2015–2024), com decomposição entre ganhos de intensidade
-produtiva e efeitos de escala. O desenho de identificação segue o pré-registro
-consolidado (v`PREENCHER`) e emprega o estimador Callaway–Sant'Anna doubly robust
-(CS-DR), em substituição ao SDID previsto originalmente.
+no Centro-Sul brasileiro, com decomposição entre ganhos de intensidade produtiva e
+efeitos de escala. Identificação por *propensity score matching* seguido do estimador
+Callaway–Sant'Anna doubly robust (CS-DR) sobre painel municipal com tratamento
+escalonado.
+
+| Dimensão | Escopo |
+|---|---|
+| Recorte espacial | SP, GO, MG, PR, MS, MT (Centro-Sul, sem ES) |
+| Janela principal | 2015–2024 |
+| Janela de robustez | 2012–2024 |
+| Universo analítico | 842 municípios canavieiros |
+| Municípios tratados | 194 |
 
 ---
 
-## Estrutura
+## Pré-registro e hipóteses
+
+O desenho foi pré-registrado (v2.6). As hipóteses e o estado de cada uma:
+
+| Hipótese | Desfechos | Situação |
+|---|---|---|
+| **H1a** (primária) | `log_luc` | Testada |
+| **H1b** (secundária) | `carbono_solo` | Testada |
+| **H1c** | `cobertura_car_ativo`, `adesao_pra`, `cobertura_veg_nativa` | **Não testada** — ver abaixo |
+| **H2** (primária) | `log_solos_manejados` | Testada |
+| **H2** (secundária) | `log_queima` | Testada |
+
+> **Sobre a hipótese H1c.** Os três desfechos pré-registrados para H1c derivam do
+> Sistema Nacional de Cadastro Ambiental Rural (SICAR). A fonte foi descartada no
+> curso da pesquisa, por inadequação da unidade de análise — o desenho final opera
+> em nível municipal, não de imóvel rural — e por envolver dados pessoais de
+> titulares identificáveis, sujeitos à LGPD. **A decisão é anterior e independente
+> dos resultados obtidos para as demais hipóteses.** A exclusão está registrada na
+> Seção 2.3 do Relatório Científico Final do processo FAPESP nº 2025/01530-0.
+>
+> O código relativo ao SICAR permanece no repositório em estado vestigial
+> (`pipeline/sicar.py`, `notebooks/06_sicar.ipynb`, constante `OUTCOMES_H1C` em
+> `pipeline/config.py`), não integrando nenhuma rotina ativa. É preservado como
+> registro da trajetória metodológica.
+
+Os parâmetros do pré-registro estão congelados em `pipeline/config.py`, na classe
+`Params`, com referência à seção correspondente do documento.
+
+---
+
+## Estrutura e fluxo de execução
 
 ```
+├── pipeline/           # módulos importados pelos notebooks
+├── notebooks/          # execução em cadeia, na ordem numérica
+├── configs/            # pipeline.yaml
 ├── data/
-│   ├── raw/          # bases brutas — NÃO versionadas (ver MANIFEST.md)
-│   ├── interim/      # bases limpas e chaveadas, sem decisão metodológica
-│   ├── processed/    # painéis finais para modelagem
+│   ├── raw/            # NÃO versionado — ver MANIFEST.md
+│   ├── interim/        # NÃO versionado — intermediários regeneráveis
+│   ├── published/      # datasets citáveis que acompanham o manuscrito
 │   └── DICIONARIO.md
-├── pipeline/         # módulos Python importados pelos notebooks
-├── notebooks/        # orquestrador + validações por camada
-├── configs/          # pipeline.yaml
-├── outputs/          # tabelas e figuras do manuscrito
-└── requirements.txt
+└── outputs/
+    ├── tables/         # tabelas de resultado (VERSIONADAS)
+    └── figures/        # figuras do manuscrito
 ```
 
-### Hierarquia de dados em 3 níveis
+### DAG
 
-- **`data/raw/`** — fontes brutas, exatamente como vieram. Nunca editar, substituir
-  ou deletar. **Não redistribuídas neste repositório** — ver `data/raw/MANIFEST.md`.
-- **`data/interim/`** — dados limpos e chaveados pela função normalizadora, sem
-  decisão metodológica de modelagem (sem `fillna` agressivo, sem filtros de amostra).
-- **`data/processed/`** — painéis finais, prontos para PSM / CS-DR.
+**Camada 1 — preparação de dados** (`data/raw/` → `data/interim/`)
+
+| Notebook | Produz |
+|---|---|
+| `00_setup` | Validação dos insumos brutos — não processa |
+| `01_crosswalk` | Chaves canônicas `geocode` / `muni_key` / `cidade_uf_seeg` |
+| `02_anp` | Coortes de tratamento a partir dos certificados |
+| `03_seeg` | Desfechos de emissão balanceados |
+| `04_pam` | Série da cana (PAM/IBGE) |
+| `04b_seeg_subcanais` | Desagregação dos canais de emissão |
+| `04c_share_cana_pre2018` | Share de cana pré-tratamento |
+| `05_mapbiomas` | Painel de uso do solo (Coleção 10.1) |
+| `09_panel_assembly` | Painel completo e painel canavieiro |
+
+**Camada 2 — pareamento** (`data/interim/` → `outputs/tables/`)
+
+| Notebook | Papel | Produz |
+|---|---|---|
+| `07_psm_baseline` | **Prepara** as covariáveis | `psm_baseline_clean.csv` (interim) |
+| `10_psm_baseline_v2` | **Executa** o pareamento | `psm_pscores_weights`, `psm_balance_smd`, `psm_support_masks`, `psm_support_summary`, `psm_diagnostics` |
+
+> Os dois são canônicos e complementares: `07` limpa e chaveia, `10` estima o
+> escore de propensão e define o suporte comum. O sufixo `_v2` é herança de
+> nomenclatura e não indica substituição.
+
+**Camada 3 — estimação** (`outputs/tables/`)
+
+| Notebook | Conteúdo | Tabelas |
+|---|---|---|
+| `11a_estimacao_t1_v4` | ATT do tratamento binário escalonado | `att_t1_main`, `att_t1_eventstudy_luc`, `att_t1_bacon` |
+| `11b_estimacao_t2t3` | Doses T2 (volume) e T3 (NEEA) | `att_t2t3_main`, `att_t2t3_eventstudy_luc` |
+| `11c_outcomes_derivados` | Desfechos derivados; contraste CS-DR × Sun-Abraham × TWFE | `att_derived_outcomes`, `att_derived_eventstudy` |
+| `11d_decomposicao_mecanistica` | Decomposição por canal de emissão | `att_canais_*` |
+| `11e_substituicao_area` | Substituição de área (PAM e MapBiomas) | `att_substituicao_*` |
+| `11f_event_studies_pretrends` | Event studies e testes de pré-tendência | `event_study_*`, `pretrend_test_consolidado` |
+| `11g_heterogeneidade_share` | Heterogeneidade por tercil de share e dose-resposta | `att_b4m5_*`, `b4m5_tercil_info` |
+| `11h_balanco_co2eq` | Balanço de CO₂eq (SAR e AR6) e intensidade de carbono | `b4m7_*`, `b4m8_*` |
+| `11i_figures_manuscript` | Figuras do manuscrito | `outputs/figures/manuscript/` |
+| `11j_exportar_dados_publicacao` | Datasets citáveis | `data/published/` |
+
+**Notebook legado:** `06_sicar` — não integra o fluxo (ver seção Pré-registro).
 
 ---
 
 ## Como reproduzir
 
-1. Instale as dependências:
+```bash
+git clone https://github.com/alvarocoutinho/renovabio-art2-causal.git
+cd renovabio-art2-causal
 
-   ```bash
-   python -m venv .venv && source .venv/bin/activate
-   pip install -r requirements.txt
-   ```
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-2. Obtenha os dados brutos conforme `data/raw/MANIFEST.md` e verifique os hashes.
+Os caminhos são resolvidos automaticamente a partir da raiz do repositório. Para
+executar a partir de outro diretório:
 
-3. Execute os notebooks na ordem numérica. Cada camada lê da anterior; se uma
-   falhar, corrija e reexecute apenas ela — os outputs anteriores permanecem válidos.
+```python
+import os
+os.environ["RENOVABIO_BASE_DIR"] = "/caminho/para/o/projeto"
+```
 
-| Notebook | Saída em `interim/` |
-|---|---|
-| `00_setup.ipynb` | (apenas validação do raw) |
-| `01_crosswalk.ipynb` | `crosswalk_centrosul.csv` |
-| `02_anp.ipynb` | `anp_muni_treat.csv` |
-| `03_seeg.ipynb` | `seeg_outcomes_balanced.csv` |
-| `04_pam.ipynb` | `pam_cana_long.csv` |
-| `05_mapbiomas.ipynb` | `mapbiomas_panel.csv` |
-| `07_psm_baseline.ipynb` | `psm_baseline_full.csv` |
-| `08_coverage_audit.ipynb` | `seeg_outcomes_audited.csv` |
-| `09_assembly.ipynb` | painel completo + canavieiro |
+1. Obtenha os dados brutos conforme `data/raw/MANIFEST.md` e verifique os hashes
+2. Execute `00_setup` para validar os insumos
+3. Execute os notebooks na ordem numérica
 
-> **Nota.** A camada SICAR constante de versões anteriores do pipeline foi
-> descontinuada e não integra a análise final.
+Cada camada lê da anterior. Se uma falhar, corrija e reexecute apenas ela — os
+produtos anteriores permanecem válidos.
 
-O `00_setup.ipynb` não processa nada: monta o ambiente, adiciona `pipeline/` ao
-`sys.path`, inventaria `data/raw/`, valida encoding/separador/shape de cada arquivo
-e reporta cobertura por UF e período.
+### Nota sobre o escopo da replicação
+
+Este é um **pacote de evidência documentada**, não um pacote de execução
+autocontida. As fontes primárias somam volume incompatível com controle de
+versão e, em parte, com redistribuição.
+
+O que é verificável sem acesso às fontes brutas:
+
+- As **tabelas de resultado** em `outputs/tables/`, que sustentam todos os números
+  do manuscrito
+- Os **datasets publicados** em `data/published/`, com codebooks
+- Os **notebooks executados**, cujos outputs preservados registram cada etapa
+- Os **parâmetros do pré-registro**, congelados em `pipeline/config.py`
+
+Quem quiser reexecutar do zero precisa obter as fontes conforme o manifesto.
 
 ---
 
 ## Convenções
 
-### Chaves canônicas
+**Chaves canônicas.** Toda camada expõe pelo menos uma de: `geocode` (IBGE 7
+dígitos, string com `zfill`), `muni_key` (`MUNICIPIO_NORMALIZADO|UF`),
+`cidade_uf_seeg` (formato literal SEEG).
 
-Toda camada expõe pelo menos uma destas três chaves:
+**Tipagem.** Geocodes são sempre `string` — nunca `int`, que perde zeros à
+esquerda. Anos sempre `int`. Emissões em escala bruta são `float`; transformações
+(`log`, `log1p`, `asinh`) ficam em colunas separadas com prefixo correspondente.
 
-- `geocode` — IBGE 7 dígitos, **string** com `zfill` (ex.: `"3550308"`)
-- `muni_key` — `MUNICIPIO_NORMALIZADO|UF` (ex.: `"SAO PAULO|SP"`)
-- `cidade_uf_seeg` — formato literal SEEG `Município (UF)`
-
-### Tipagem
-
-- Geocodes são **sempre** string. Nunca `int` — perde zeros à esquerda.
-- Anos são sempre `int`.
-- Outcomes AFOLU em escala bruta (gCO₂eq) são `float`; transformações
-  (`log` / `log1p` / `asinh`) ficam em colunas separadas com prefixo correspondente.
-
-### Reprodutibilidade
-
-Semente única declarada em `configs/pipeline.yaml`, governando todos os
-procedimentos estocásticos (bootstrap do CS-DR, matching do PSM).
-
-### Pré-registro
-
-Toda decisão metodológica tem âncora explícita em uma seção do
-`preregistro_renovabio_consolidado_v PREENCHER.md`. Os módulos referenciam por
-docstring. Para auditar uma decisão, leia primeiro a seção correspondente do
-pré-registro.
+**Especificações.** Os ATT são reportados em quatro conjuntos de covariáveis —
+`LEAN`, `FULL`, `FULL2`, `RICH` — mais os contrastes de estimador
+(`sa_canonical`, `twfe_classic`) em `att_derived_outcomes`.
 
 ---
 
-## Dados
+## Dados e licenciamento
 
-Dados derivados em `data/interim/`, `data/processed/` e `outputs/` são produto desta
-pesquisa, sob licença CC BY 4.0.
-
-Dados brutos de terceiros (ANP, IBGE/PAM, SEEG, MapBiomas, e demais fontes do
-baseline socioeconômico) **não são redistribuídos**. Fontes, URLs, datas de acesso,
-versões e hashes SHA-256 constam em `data/raw/MANIFEST.md`.
-
-## Licenciamento
+Dados derivados em `data/published/` e `outputs/` são produto desta pesquisa,
+sob CC BY 4.0. Dados brutos de terceiros não são redistribuídos — ver
+`data/raw/MANIFEST.md`.
 
 - **Código** (`pipeline/`, `notebooks/`): MIT — ver `LICENSE`
 - **Dados derivados e outputs**: CC BY 4.0 — ver `LICENSE-DATA`
@@ -131,11 +196,10 @@ Ver `CITATION.cff` ou o botão *Cite this repository* no GitHub.
 
 ## Transparência sobre ferramentas de apoio
 
-Partes do código deste pipeline foram desenvolvidas com assistência de ferramenta de
-IA generativa (Claude, Anthropic). Todo o desenho metodológico, as decisões de
-identificação causal, a validação dos resultados e a redação científica são de
-responsabilidade exclusiva dos autores. Esta nota deve ser mantida consistente com
-a declaração de uso de IA apresentada ao periódico.
+Partes do código deste pipeline foram desenvolvidas com assistência de ferramenta
+de IA generativa. O desenho metodológico, as decisões de identificação causal, a
+validação dos resultados e a redação científica são de responsabilidade exclusiva
+dos autores.
 
 ## Financiamento
 
