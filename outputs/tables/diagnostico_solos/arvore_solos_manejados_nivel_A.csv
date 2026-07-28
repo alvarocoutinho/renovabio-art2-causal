@@ -1,0 +1,10 @@
+Sub-categoria emissora,soma_2015_2024,n_linhas,n_munis_emissao_pos,share_pct,pipeline_status
+Redução do estoque de C no solo,518378990.6533249,18,6,33.56349452860597,excluido_pipeline_carbono
+Deposição de dejetos em pastagem,322709356.7605785,77355,2336,20.89446896046607,misto_ou_inclui
+Resíduos agrícolas,251749877.8472726,51568,2361,16.300054207549817,misto_ou_inclui
+Fertilizantes sintéticos nitrogenados,212598133.25669232,11460,2303,13.765095443701828,misto_ou_inclui
+Corretivo agrícola,161484534.0,2865,2328,10.455642244552683,misto_ou_inclui
+Aplicação de resíduos orgânicos,48352046.5650469,48705,2336,3.1306508936396527,misto_ou_inclui
+Mineralização de N associado a perda de C no solo,15168438.61548591,5730,2363,0.9821111882576862,excluido_pipeline_carbono
+Solos orgânicos,11542695.390944099,2865,2363,0.747355121609099,misto_ou_inclui
+Ocorrência de queima de pasto,2488568.7909973585,15,6,0.16112741161718547,misto_ou_inclui

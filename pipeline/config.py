@@ -27,9 +27,31 @@ from typing import Tuple
 # ============================================================================
 # DIRETÓRIO-RAIZ DO PROJETO
 # ============================================================================
-# Em Colab: o Drive é montado em /content/drive/MyDrive/
-# Pasta do projeto: "Renovabio - EcoEco"
-BASE_DIR = Path("/content/drive/MyDrive/Renovabio - EcoEco")
+# Resolvido automaticamente, em ordem de precedência:
+#   1. variável de ambiente RENOVABIO_BASE_DIR
+#   2. raiz do repositório (detectada a partir da localização deste arquivo)
+#
+# Nenhum caminho pessoal permanece no código publicado. Para executar a partir
+# do Google Drive, defina a variável antes de importar o módulo:
+#
+#     import os
+#     os.environ["RENOVABIO_BASE_DIR"] = "/content/drive/MyDrive/Renovabio - EcoEco"
+#
+import os
+
+
+def _resolver_base_dir() -> Path:
+    if os.environ.get("RENOVABIO_BASE_DIR"):
+        return Path(os.environ["RENOVABIO_BASE_DIR"]).expanduser().resolve()
+    # config.py vive em <raiz>/pipeline/config.py
+    raiz = Path(__file__).resolve().parent.parent
+    for candidato in [raiz, *raiz.parents]:
+        if (candidato / ".git").exists() or (candidato / "requirements.txt").exists():
+            return candidato
+    return raiz
+
+
+BASE_DIR = _resolver_base_dir()
 
 
 # ============================================================================
@@ -52,6 +74,14 @@ RAW_PSM_BASELINE = DATA_RAW / "psm_baseline"
 
 # Outputs auxiliares (relatórios de auditoria, logs, NÃO entram na modelagem)
 OUTPUTS_PRE = BASE_DIR / "outputs_pre"
+
+# Outputs publicados no pacote de replicação
+OUTPUTS         = BASE_DIR / "outputs"
+OUTPUTS_TABLES  = OUTPUTS / "tables"
+OUTPUTS_FIGURES = OUTPUTS / "figures"
+
+# Dados publicados (datasets citáveis que acompanham o manuscrito)
+DATA_PUBLISHED  = BASE_DIR / "data" / "published"
 
 
 # ============================================================================
@@ -194,6 +224,16 @@ def processed(filename: str) -> Path:
     """Caminho para um arquivo final em data/processed/."""
     ensure_dir(DATA_PROCESSED)
     return DATA_PROCESSED / filename
+
+
+def tables(filename: str) -> Path:
+    """Caminho para uma tabela de resultado em outputs/tables/.
+
+    Tabelas de resultado sustentam os números do manuscrito e SÃO versionadas.
+    Não confundir com data/interim/, que guarda intermediários regeneráveis.
+    """
+    ensure_dir(OUTPUTS_TABLES)
+    return OUTPUTS_TABLES / filename
 
 
 # ============================================================================

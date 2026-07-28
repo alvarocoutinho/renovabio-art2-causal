@@ -11,7 +11,7 @@ type: software
 authors:
   - family-names: Coutinho
     given-names: Alvaro Luz Alves
-    orcid: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0009-0002-5118-0972"
     affiliation: "Universidade de São Paulo (ESALQ/CENA)"
   - family-names: Almeida
     given-names: Alexandre Nunes de
@@ -23,9 +23,9 @@ authors:
     given-names: Gabriel Adrián
     affiliation: "Universidade de São Paulo (ESALQ)"
 version: 1.0.0
-date-released: "2026-08-01"
+date-released: "2026-07-28"
 license: MIT
-repository-code: "https://github.com/USUARIO/renovabio-art2-causal"
+repository-code: "https://github.com/alvarocoutinho/renovabio-art2-causal"
 keywords:
   - RenovaBio
   - causal inference

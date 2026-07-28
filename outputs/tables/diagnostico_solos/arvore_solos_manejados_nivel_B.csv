@@ -1,0 +1,34 @@
+Sub-categoria emissora,Produto ou sistema,soma_2015_2024,n_linhas,share_pct,pipeline_status
+Redução do estoque de C no solo,Lavouras cultivadas sob sistema convencional,268677232.4176146,6,17.396049961138143,excluido_pipeline_carbono
+Deposição de dejetos em pastagem,Gado de corte,260280677.77930483,8595,16.852398075657852,verificar_detalhamento
+Redução do estoque de C no solo,Pastagens de baixo vigor,214552491.69076657,6,13.891634327012502,excluido_pipeline_carbono
+Fertilizantes sintéticos nitrogenados,Aplicação de ureia e demais fertilizantes sintéticos nitrogenados,182086381.81687233,8595,11.789550483405675,verificar_detalhamento
+Corretivo agrícola,Calagem,161484534.0,2865,10.455642244552683,verificar_detalhamento
+Resíduos agrícolas,Soja,80586615.81751446,5730,5.2177431721550604,verificar_detalhamento
+Resíduos agrícolas,Milho,64458831.290363505,5730,4.173517195609699,verificar_detalhamento
+Resíduos agrícolas,Pastagem,58824164.840229325,5728,3.8086893380392226,verificar_detalhamento
+Deposição de dejetos em pastagem,Gado de leite,51157871.903305724,8595,3.312319721055257,verificar_detalhamento
+Resíduos agrícolas,Cana-de-açúcar,35451349.576041155,5730,2.2953692163093513,verificar_detalhamento
+Redução do estoque de C no solo,Pastagens de médio vigor,35149266.54494378,6,2.275810240455328,excluido_pipeline_carbono
+Fertilizantes sintéticos nitrogenados,Aplicação de ureia,30511751.439820003,2865,1.9755449602961557,verificar_detalhamento
+Aplicação de resíduos orgânicos,Torta de filtro,23269706.600481614,8595,1.5066441430876718,verificar_detalhamento
+Mineralização de N associado a perda de C no solo,Manejo de solo,15168438.61548591,5730,0.9821111882576862,excluido_pipeline_carbono
+Solos orgânicos,Manejo de solo,11542695.390944099,2865,0.747355121609099,verificar_detalhamento
+Aplicação de resíduos orgânicos,Aves,9329899.390888108,8595,0.6040831762179532,verificar_detalhamento
+Deposição de dejetos em pastagem,Equino,6348157.115695995,8595,0.411024251486082,verificar_detalhamento
+Resíduos agrícolas,Outras culturas,5518228.60795646,5730,0.357288854352137,verificar_detalhamento
+Aplicação de resíduos orgânicos,Gado de corte,5482709.8111331165,8595,0.35498911812760275,verificar_detalhamento
+Aplicação de resíduos orgânicos,Vinhaça,4291198.867665556,5730,0.27784233603783154,verificar_detalhamento
+Aplicação de resíduos orgânicos,Suínos,3993806.6159837483,8595,0.25858707416930515,verificar_detalhamento
+Resíduos agrícolas,Feijão,3148679.3006265163,5730,0.2038675995447292,verificar_detalhamento
+Ocorrência de queima de pasto,Pastagem,2488568.7909973585,15,0.16112741161718547,verificar_detalhamento
+Resíduos agrícolas,Trigo,2332183.404778374,5730,0.15100192399258172,verificar_detalhamento
+Deposição de dejetos em pastagem,Suínos,2061423.5785263318,8595,0.1334710322881873,verificar_detalhamento
+Aplicação de resíduos orgânicos,Gado de leite,1984725.2788947504,8595,0.12850504599928783,verificar_detalhamento
+Deposição de dejetos em pastagem,Bubalino,1269220.8409417681,8595,0.0821782663237424,verificar_detalhamento
+Resíduos agrícolas,Mandioca,932038.7535433475,5730,0.06034673119289585,verificar_detalhamento
+Deposição de dejetos em pastagem,Ovino,758516.8217364738,8595,0.0491117033198468,verificar_detalhamento
+Deposição de dejetos em pastagem,Muar,547607.953785321,8595,0.03545598276953789,verificar_detalhamento
+Resíduos agrícolas,Arroz,497786.25621946214,5730,0.03223017635413887,verificar_detalhamento
+Deposição de dejetos em pastagem,Caprino,226884.6996112125,8595,0.014690108031631309,verificar_detalhamento
+Deposição de dejetos em pastagem,Asinino,58996.06767086175,8595,0.0038198195339372307,verificar_detalhamento

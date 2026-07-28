@@ -1,0 +1,2 @@
+spec_principal,fator,M_direto,M_proxy,razao_direto_proxy,ATT_cana_direto,sig_cana_direto,ATT_fert_n,sig_fert_n,ATT_calagem,sig_calagem,ATT_res_outros,sig_res_outros,H5.1_signif,H5.2_signif,H5.3_nulo,s_cana_direto,s_fert_n,s_calagem,configuracao,narrativa
+FULL,1.5,4.8005874237917405,0.9160466970400927,5.240548805321038,0.45535016412869905,False,0.23580034868691319,False,0.04345235390657479,False,-0.08053369531052687,True,False,False,False,0.09485300941963495,0.3198737397998666,0.24291376900601622,III,Efeito disperso — sem canal dominante; ver §6.5 Configuração III
