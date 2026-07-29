@@ -27,7 +27,7 @@ preservação de longo prazo.
 | `renovabio_outcomes_panel_v1.0.csv` | 8.420 × 22 | Painel longo de desfechos de emissão | `d2f5bac066707f6c9c2357a8f52a3aea8fd465371fd5e47a72c3a801f24d4c1a` |
 | `CODEBOOK_PSM_v1.0.md` | — | Codebook do cross-section | `9121300a2889a83a2843cf0da5ead131510b24ec510e7422c4509762e6b327df` |
 | `CODEBOOK_PANEL_v1.0.md` | — | Codebook do painel | `dc9da4ac1ccb43b74711c8022935f05efa05678c4d88e2606db19262db133493` |
-| `README.md` | — | Documentação dos datasets publicados | `02cd6ad6223fd5613438540e77ce2d194861616098d70d79bd3d014e04166107` |
+| `README.md` | — | Documentação dos datasets publicados | `ab064a74f16a021c0cba6694f4aec70569003913ea11501aabd321e267d326fe` |
 
 Verificação:
 
@@ -111,33 +111,140 @@ Dados abertos de instituições públicas, sujeitos às licenças de seus proved
 Não versionados: o volume bruto excede o praticável em controle de versão, e os
 produtos das Seções 1 e 2 já permitem verificar os resultados.
 
-| # | Órgão | Conteúdo | Arquivo esperado em `data/raw/` | URL | Data de acesso | Versão | SHA-256 | Licença |
-|---|---|---|---|---|---|---|---|---|
-| 1 | ANP | Certificados aprovados (corte 2022-02-22) | `anp/certificados-aprovados.xlsx` | https://www.gov.br/anp/ | `PREENCHER` | — | `PREENCHER` | Dados abertos |
-| 2 | ANP | Certificados aprovados (corte 2023-10-09) | `anp/certificados-aprovados-producao_2025.xlsx` | idem | `PREENCHER` | — | `PREENCHER` | Dados abertos |
-| 3 | ANP | Certificados aprovados (corte 2026-04-17) | `anp/certificados-aprovados-producao_2026.xlsx` | idem | `PREENCHER` | — | `PREENCHER` | Dados abertos |
-| 4 | ANP | NEEA consolidado por usina | `anp/Usinas_NEEA_consolidado.csv` | idem | `PREENCHER` | — | `PREENCHER` | Dados abertos |
-| 5 | SEEG | Emissões municipais — GO | `seeg/ar6 - go.csv` | https://seeg.eco.br/ | `PREENCHER` | AR6, Coleção `PREENCHER` | `PREENCHER` | CC BY-SA (confirmar) |
-| 6 | SEEG | Emissões municipais — MG | `seeg/ar6 - mg.csv` | idem | `PREENCHER` | idem | `PREENCHER` | idem |
-| 7 | SEEG | Emissões municipais — MS | `seeg/ar6 - ms.csv` | idem | `PREENCHER` | idem | `PREENCHER` | idem |
-| 8 | SEEG | Emissões municipais — MT | `seeg/ar6 - mt.csv` | idem | `PREENCHER` | idem | `PREENCHER` | idem |
-| 9 | SEEG | Emissões municipais — PR | `seeg/ar6 - pr.csv` | idem | `PREENCHER` | idem | `PREENCHER` | idem |
-| 10 | SEEG | Emissões municipais — SP | `seeg/ar6 - sp.csv` | idem | `PREENCHER` | idem | `PREENCHER` | idem |
-| 11 | IBGE | PAM tabela 1612 | `ibge/tabela1612.csv` | https://sidra.ibge.gov.br/tabela/1612 | `PREENCHER` | — | `PREENCHER` | Dados abertos |
-| 12 | IBGE | Universo core 6 UFs | `ibge/01_universo_core_6ufs.csv` | https://www.ibge.gov.br/ | `PREENCHER` | — | `PREENCHER` | Dados abertos |
-| 13 | IBGE | Malha municipal Centro-Sul | `ibge/centro_sul.geojson` | https://www.ibge.gov.br/geociencias/organizacao-do-territorio/malhas-territoriais.html | `PREENCHER` | Ano `PREENCHER` | `PREENCHER` | Dados abertos |
-| 14 | MapBiomas | Painel municipal-ano pronto | `mapbiomas/mapbiomas_municipal_year_panel_ready.csv` | https://brasil.mapbiomas.org/ | `PREENCHER` | **Coleção 10.1** | `PREENCHER` | CC BY-SA 4.0 |
-| 15 | MapBiomas | Estatísticas de cobertura (backup) | `mapbiomas/MAPBIOMAS_BRAZIL-COVERAGE_STATISTICS-COL.10.1-….csv` | idem | `PREENCHER` | **Coleção 10.1** | `PREENCHER` | CC BY-SA 4.0 |
-| 16 | IBGE / Atlas Brasil / IPEA | Covariáveis socioeconômicas de baseline | `psm_baseline/base_psm_integrada_raw.csv` | `PREENCHER` | `PREENCHER` | `PREENCHER` | `PREENCHER` | Dados abertos |
+Todos os arquivos foram acessados e verificados em **2026-07-28**.
 
-> **Share-alike.** MapBiomas e SEEG podem impor compartilhamento pela mesma
-> licença aos produtos derivados. Verificar antes do release definitivo.
+Verificação:
 
-> **Revisão retroativa.** SEEG, PAM e MapBiomas revisam séries históricas entre
-> edições. O registro da coleção e do hash é o que permite distinguir uma falha
-> de replicação de uma atualização da fonte.
+```powershell
+Get-ChildItem -Recurse data\raw -File | Get-FileHash -Algorithm SHA256
+```
+
+### 3.1 ANP — certificação RenovaBio
+
+A ANP publica apenas a versão corrente da tabela de certificados aprovados; as
+versões anteriores não permanecem acessíveis no portal. Os três arquivos abaixo
+foram obtidos a partir de instantâneos arquivados no Internet Archive. Esse
+procedimento é o que torna verificável a construção das coortes de tratamento,
+uma vez que a data da primeira certificação de cada usina não é reconstituível a
+partir da tabela corrente.
+
+| # | Arquivo em `data/raw/anp/` | SHA-256 |
+|---|---|---|
+| 1 | `certificados-aprovados.xlsx` | `332e25a1fb42a918d4159350b451d03ef13443b7a41df38cedda06e1dab6e629` |
+| 2 | `certificados-aprovados-producao_2025.xlsx` | `6ea065cc780e01d4f75355c492eac140dc1807289840aa83b2c876cf0454a958` |
+| 3 | `certificados-aprovados-producao_2026.xlsx` | `13a8761ccd070ac141b7f17f6dbac25622f5dfc11af54b02516ecc1d540c5335` |
+| 4 | `Usinas_NEEA_consolidado.csv` | `a8f5798f2dc2aab833eb32712d4f7bbf5c90eaa3257ab3e5c19a195de017887c` |
+
+**Instantâneos utilizados** (Internet Archive):
+
+- https://web.archive.org/web/20210603213454/https://www.gov.br/anp/pt-br/assuntos/renovabio/certificacoes/certificados-aprovados.xlsx
+- https://web.archive.org/web/20231219141824/https://www.gov.br/anp/pt-br/assuntos/renovabio/arq/certificacoes/certificados-aprovados-producao.xlsx
+- https://web.archive.org/web/20260216004803/https://www.gov.br/anp/pt-br/assuntos/renovabio/arq/certificacoes/certificados-aprovados-producao.xlsx
+
+**Datas de corte declaradas**, conforme `DATA_CORTE` em `pipeline/config.py`,
+usadas para datar as coortes de tratamento:
+
+| Arquivo | Data de corte |
+|---|---|
+| `certificados-aprovados.xlsx` | 2022-02-22 |
+| `certificados-aprovados-producao_2025.xlsx` | 2023-10-09 |
+| `certificados-aprovados-producao_2026.xlsx` | 2026-04-17 |
+
+> As datas de corte e as datas de captura dos instantâneos são registros
+> independentes. A verificação de integridade dos arquivos deve ser feita pelos
+> hashes acima.
+
+O `Usinas_NEEA_consolidado.csv` foi obtido diretamente em https://www.gov.br/anp/.
+
+### 3.2 SEEG — emissões municipais
+
+| Campo | Valor |
+|---|---|
+| Edição | **SEEG Setor Agropecuário 1970–2024, Versão 13 — janeiro de 2026** |
+| Métrica de GWP | AR6 |
+| Provedor | Observatório do Clima / Imaflora |
+| URL | https://seeg.eco.br/ |
+| Licença | CC BY-SA (confirmar termos vigentes) |
+
+| # | UF | Arquivo em `data/raw/seeg/` | SHA-256 |
+|---|---|---|---|
+| 5 | GO | `ar6 - go.csv` | `27aa052ffacc097fdeba9c30bda0164a4fa699988361050300b7041c5846fb10` |
+| 6 | MG | `ar6 - mg.csv` | `77c9502bcf1421e710a7f8cd5308ca8a42a6793bd8c3a733e7230ad6c916a390` |
+| 7 | MS | `ar6 - ms.csv` | `48abe855dc29bf4c67d77fe2bde98efac2991fc621b1db8fc1ce1c5cc6913641` |
+| 8 | MT | `ar6 - mt.csv` | `3b57e7ad0878a6297d6fc8ba5494436ada00f405e2e0d720eff4676f7218fe25` |
+| 9 | PR | `ar6 - pr.csv` | `712d795d996f5f365f302000b282d39e33264107c05a1cab02158b6ff218a385` |
+| 10 | SP | `ar6 - sp.csv` | `NÃO LOCALIZADO` |
+
+> **`ar6 - sp.csv` não foi localizado** na verificação de 2026-07-28. São Paulo
+> concentra a maior parte do universo canavieiro analisado; o arquivo deve ser
+> recuperado e seu hash registrado antes do release definitivo.
+
+### 3.3 IBGE
+
+| # | Conteúdo | Arquivo em `data/raw/ibge/` | Referência | SHA-256 |
+|---|---|---|---|---|
+| 11 | PAM — tabela 1612 | `tabela1612.csv` | 2012–2026 | `4c419a69e5e1ddc317b4fb0b7599756f7750efc3921701e3643f7be9d93c7111` |
+| 12 | PAM — recorte cana, soja, algodão e milho | `tabela1612 - cana, soja, algodão e milho.csv` | 2012–2026 | `4ca8f47a8b94fb6d1cd2d2d77537ffacc047df92a0b70b681cf0bdd9d3a634c8` |
+| 13 | Universo core, 6 UFs | `01_universo_core_6ufs.csv` | — | `a08e3b1c033690149bb2b72f5b916d74f0595fbf57897553d6532efba768a4a8` |
+| 14 | Malha municipal Centro-Sul | `centro_sul.geojson` | **Ano de referência 2022** | `PREENCHER` |
+
+PAM: https://sidra.ibge.gov.br/tabela/1612 ·
+Malhas: https://www.ibge.gov.br/geociencias/organizacao-do-territorio/malhas-territoriais.html
+
+> A malha municipal não foi localizada em `data/raw/ibge/` na verificação de
+> 2026-07-28. É reconstruível a partir das malhas territoriais do IBGE
+> (ano de referência 2022), restringidas aos municípios do crosswalk.
+
+### 3.4 MapBiomas
+
+URL: https://brasil.mapbiomas.org/ · **Coleção 10.1** · Licença: CC BY-SA 4.0
+
+| # | Conteúdo | Arquivo em `data/raw/mapbiomas/` | SHA-256 |
+|---|---|---|---|
+| 15 | Painel municipal-ano pronto | `mapbiomas_municipal_year_panel_ready.csv` | `63c7334e247c7b9fbec6e13b69f71a42c869ef12d45da4ea06a706f76b05afc9` |
+| 16 | Estatísticas de cobertura (backup) | `MAPBIOMAS_BRAZIL-COVERAGE_STATISTICS-COL.10.1-MUNICIPALITIES_STATES_BIOMES.csv` | `913352cf256305485659e6e73f36b07311c1d521e40cdb348472a468cb62f0f3` |
+
+### 3.5 Baseline socioeconômico ex-ante
+
+| # | Arquivo em `data/raw/psm_baseline/` | SHA-256 |
+|---|---|---|
+| 17 | `base_psm_integrada_raw.csv` | `cd1bbcb153b09b3af58e9e9d45d38ab6ce3530a656219aa47c3f674a181e1973` |
+
+Base integrada de covariáveis ex-ante, em 17 blocos temáticos. Ano de referência
+predominante: **2017**. Composição por provedor:
+
+| Bloco | Conteúdo | Provedor | URL |
+|---|---|---|---|
+| 0 | Identificadores territoriais | IBGE | https://www.ibge.gov.br/ |
+| 1 | PIB municipal e valor adicionado por setor | IBGE | https://www.ibge.gov.br/ |
+| 2 | População estimada (2017) | IBGE | https://www.ibge.gov.br/ |
+| 3 | Participação das classes de uso do solo | MapBiomas | https://brasil.mapbiomas.org/ |
+| 4 | Área colhida, quantidade e valor da produção (2017) | IBGE / SIDRA | https://sidra.ibge.gov.br/ |
+| 5–13 | Estrutura fundiária, ocupação, assistência técnica, maquinário, irrigação e financiamento | IBGE — Censo Agropecuário 2017 | https://sidra.ibge.gov.br/ |
+| 14 | Bioma, desmatamento e vegetação natural | **INPE** | http://www.inpe.br/ |
+| 15 | Área irrigada por cultura | ANA | https://www.gov.br/ana/ |
+| 16 | Saneamento básico e população urbana | ANA | https://www.gov.br/ana/ |
+| 17 | IVS, IDHM, esperança de vida e Gini | IPEA / PNUD — Atlas Brasil | http://www.atlasbrasil.org.br/ |
+
+Dicionário completo, variável a variável: `data/DICIONARIO.md`.
+
+> Este arquivo é compartilhado com o pacote de replicação do Artigo 1
+> (`renovabio-art1-spatial`), onde consta com hash idêntico.
 
 ---
+
+### Notas transversais
+
+> **Share-alike.** MapBiomas (CC BY-SA 4.0) e SEEG podem impor compartilhamento
+> pela mesma licença aos produtos derivados. Verificar antes do release
+> definitivo.
+
+> **Revisão retroativa.** SEEG, PAM e MapBiomas revisam séries históricas entre
+> edições. O registro da edição e do hash é o que permite distinguir uma falha de
+> replicação de uma atualização da fonte. No caso da ANP, o problema é mais
+> severo: as versões anteriores da tabela de certificados deixam de estar
+> disponíveis no portal, e sua recuperação depende de arquivamento externo
+> (Seção 3.1).
 
 ## 4. Fontes descartadas no curso da pesquisa
 
