@@ -22,9 +22,17 @@ authors:
   - family-names: Sarriés
     given-names: Gabriel Adrián
     affiliation: "Universidade de São Paulo (ESALQ)"
-version: 1.0.0
-date-released: "2026-07-28"
+version: 1.0.1
+date-released: "2026-07-29"
 license: MIT
+doi: 10.5281/zenodo.21675951
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21675951
+    description: DOI de conceito — resolve para a versão mais recente
+  - type: doi
+    value: 10.5281/zenodo.21675952
+    description: DOI da versão v1.0.1
 repository-code: "https://github.com/alvarocoutinho/renovabio-art2-causal"
 keywords:
   - RenovaBio

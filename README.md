@@ -1,13 +1,14 @@
 # Intensity Gains, Scale Effects: Causal Inference and Emissions Impact of Brazil's National Biofuels Policy
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://zenodo.org/badge/1314185166.svg)](https://doi.org/10.5281/zenodo.21675951)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Pacote de replicação do manuscrito submetido a *Ecological Economics* (Elsevier).
 
 **Autores:** Alvaro Luz Alves Coutinho, Alexandre Nunes de Almeida, Roberto Fray da Silva, Gabriel Adrián Sarriés
 
-**DOI (todas as versões):** `10.5281/zenodo.XXXXXXX`
+**DOI (todas as versões):** [10.5281/zenodo.21675951](https://doi.org/10.5281/zenodo.21675951)
+**DOI (v1.0.1):** [10.5281/zenodo.21675952](https://doi.org/10.5281/zenodo.21675952)
 **Pré-registro:** v2.6
 
 ---
