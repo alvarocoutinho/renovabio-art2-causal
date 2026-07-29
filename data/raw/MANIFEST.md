@@ -18,14 +18,22 @@ do pacote de replicação.
 ## 1. Dados publicados — `data/published/`
 
 Datasets citáveis que acompanham o manuscrito, sob licença CC BY 4.0.
+Distribuídos em CSV (UTF-8, separador `,`), formato aberto e adequado à
+preservação de longo prazo.
 
 | Arquivo | Dimensões | Descrição | SHA-256 |
 |---|---|---|---|
-| `renovabio_psm_cross_section_v1.0.parquet` | 5.570 × 47 | Cross-section de covariáveis para pareamento | `7c3c12f161b6d335c90f5417cfb4e86e483cdf6e9f6a3f6c9f6d75d45154c216` |
+| `renovabio_psm_cross_section_v1.0.csv` | 5.570 × 47 | Cross-section de covariáveis ex-ante para pareamento | `9ceb23e5e19f2ea17fff72b175d70009f1aa2b1beae6a425713dbf21da861ab2` |
+| `renovabio_outcomes_panel_v1.0.csv` | 8.420 × 22 | Painel longo de desfechos de emissão | `d2f5bac066707f6c9c2357a8f52a3aea8fd465371fd5e47a72c3a801f24d4c1a` |
+| `CODEBOOK_PSM_v1.0.md` | — | Codebook do cross-section | `9121300a2889a83a2843cf0da5ead131510b24ec510e7422c4509762e6b327df` |
+| `CODEBOOK_PANEL_v1.0.md` | — | Codebook do painel | `dc9da4ac1ccb43b74711c8022935f05efa05678c4d88e2606db19262db133493` |
+| `README.md` | — | Documentação dos datasets publicados | `02cd6ad6223fd5613438540e77ce2d194861616098d70d79bd3d014e04166107` |
 
-> **Correção pendente.** O `README.md` que acompanha a versão distribuída desses
-> dados declara dimensões incorretas (~2.018 e ~10.946 linhas). Os valores
-> corretos são os da tabela acima.
+Verificação:
+
+```bash
+sha256sum data/published/*
+```
 
 ---
 

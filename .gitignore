@@ -6,8 +6,12 @@ data/raw/*
 !data/raw/.gitkeep
 
 # =====================================================================
-# CAMADA INTERIM — derivados intermediarios pesados
-# Comente as linhas abaixo se quiser versionar arquivos pequenos.
+# CAMADA INTERIM — derivados intermediarios, NAO versionados
+#
+# ATENCAO: tabelas de RESULTADO nao moram aqui. Elas ficam em outputs/tables/
+# e SAO versionadas — sustentam os numeros do manuscrito. data/interim/ guarda
+# apenas produtos regeneraveis a partir das fontes primarias (camadas ANP,
+# SEEG, PAM, MapBiomas, paineis montados, psm_baseline_clean.csv).
 # =====================================================================
 data/interim/*
 !data/interim/.gitkeep
