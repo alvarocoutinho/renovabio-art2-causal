@@ -1,0 +1,78 @@
+# =====================================================================
+# CAMADA RAW — bases brutas de terceiros, NAO redistribuidas
+# =====================================================================
+data/raw/*
+!data/raw/MANIFEST.md
+!data/raw/.gitkeep
+
+# =====================================================================
+# CAMADA INTERIM — derivados intermediarios, NAO versionados
+#
+# ATENCAO: tabelas de RESULTADO nao moram aqui. Elas ficam em
+# outputs/tables/ e SAO versionadas — sustentam os numeros do manuscrito.
+# data/interim/ guarda apenas produtos regeneraveis a partir das fontes
+# primarias (camadas ANP, SEEG, PAM, MapBiomas, paineis montados).
+# =====================================================================
+data/interim/*
+!data/interim/.gitkeep
+
+# =====================================================================
+# Arquivos pesados / regeneraveis
+# =====================================================================
+*.tif
+*.tiff
+*.zip
+*.7z
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.sqlite
+*.feather
+
+# Shapefiles (usar GeoPackage/GeoParquet no lugar)
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.sbn
+*.sbx
+
+# Auditorias e relatorios internos de versoes anteriores
+outputs_pre/
+
+# =====================================================================
+# Python
+# =====================================================================
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# =====================================================================
+# Jupyter
+# =====================================================================
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# =====================================================================
+# Credenciais
+# =====================================================================
+.env
+*.key
+*token*
+credentials.json
+service_account*.json
+
+# =====================================================================
+# Sistema
+# =====================================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

@@ -1,10 +1,8 @@
 # Ambiente de replicacao — Art. 2 (Ecological Economics)
 # Python 3.11
 #
-# ATENCAO: versoes abaixo sao ponto de partida. Confirme no ambiente que gerou
-# os resultados finais com:
-#   pip freeze | grep -E "pandas|numpy|statsmodels|scikit-learn|scipy|linearmodels|differences|pyyaml"
-# e ajuste antes do release. Versoes erradas invalidam a replicacao.
+# Confirme as versoes no ambiente que gerou os resultados finais:
+#   pip freeze | grep -E "pandas|numpy|scipy|statsmodels|pyfixest|differences|linearmodels|scikit-learn|openpyxl"
 
 # --- Nucleo ---
 pandas==2.2.2
@@ -12,29 +10,23 @@ numpy==1.26.4
 scipy==1.13.1
 pyyaml==6.0.1
 
+# --- Leitura de planilhas (certificados ANP em .xlsx) ---
+openpyxl==3.1.5
+
 # --- Modelagem causal ---
-statsmodels==0.14.2
-linearmodels==6.1
-scikit-learn==1.5.1
-# Estimador Callaway-Sant'Anna doubly robust (CS-DR).
-# CONFIRMAR qual implementacao foi efetivamente usada e pinar a versao:
-#   differences==0.2.0        (implementacao Python de CS)
-#   csdid==0.1.1              (port do pacote R did)
-#   ou chamada ao pacote R `did` via rpy2 — nesse caso documentar a versao do R
+# pyfixest: estimacao de efeitos fixos e event studies (camada 11)
+# differences: implementacao do estimador Callaway-Sant'Anna (CS-DR)
+# linearmodels: contrastes TWFE
+pyfixest==0.25.3
 differences==0.2.0
+linearmodels==6.1
+statsmodels==0.14.2
 
-# --- Propensity score matching ---
-# CONFIRMAR biblioteca usada no 07_psm_baseline
-# psmpy==0.3.13
-
-# --- Geoprocessamento (crosswalk / GeoJSON IBGE) ---
-geopandas==1.0.1
-shapely==2.0.5
-pyproj==3.6.1
+# --- Propensity score matching (notebook 10) ---
+scikit-learn==1.5.1
 
 # --- Visualizacao ---
 matplotlib==3.9.0
 
 # --- Notebooks ---
 jupyter==1.0.0
-nbstripout==0.7.1
